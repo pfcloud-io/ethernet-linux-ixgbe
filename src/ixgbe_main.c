@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
-/* Copyright (C) 1999 - 2025 Intel Corporation */
+/* Copyright (C) 1999 - 2026 Intel Corporation */
 
 /******************************************************************************
  Copyright (c)2006 - 2007 Myricom, Inc. for some LRO specific code
@@ -78,7 +78,7 @@
 
 #define RELEASE_TAG
 
-#define DRV_VERSION	"6.3.4" \
+#define DRV_VERSION	"6.3.6" \
 			DRIVERIOV DRV_HW_PERF FPGA \
 			BYPASS_TAG RELEASE_TAG
 #define DRV_SUMMARY	"Intel(R) 10GbE PCI Express Linux Network Driver"
@@ -89,7 +89,7 @@ char ixgbe_driver_name[] = "ixgbe";
 const char ixgbe_driver_name[] = "ixgbe";
 #endif
 static const char ixgbe_driver_string[] = DRV_SUMMARY;
-static const char ixgbe_copyright[] = "Copyright (C) 1999 - 2025 Intel Corporation";
+static const char ixgbe_copyright[] = "Copyright (C) 1999 - 2026 Intel Corporation";
 static const char ixgbe_overheat_msg[] =
 		"Network adapter has been stopped because it has over heated. "
 		"Restart the computer. If the problem persists, "
