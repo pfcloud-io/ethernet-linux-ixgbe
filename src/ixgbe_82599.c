@@ -106,8 +106,8 @@ s32 ixgbe_init_phy_ops_82599(struct ixgbe_hw *hw)
 	}
 	/* Identify the PHY or SFP module */
 	ret_val = phy->ops.identify(hw);
-	if (ret_val == IXGBE_ERR_SFP_NOT_SUPPORTED)
-		goto init_phy_ops_out;
+//	if (ret_val == IXGBE_ERR_SFP_NOT_SUPPORTED)
+//		goto init_phy_ops_out;
 
 	/* Setup function pointers based on detected SFP module and speeds */
 	ixgbe_init_mac_link_ops_82599(hw);
@@ -1017,8 +1017,8 @@ s32 ixgbe_reset_hw_82599(struct ixgbe_hw *hw)
 	/* Identify PHY and related function pointers */
 	status = hw->phy.ops.init(hw);
 
-	if (status == IXGBE_ERR_SFP_NOT_SUPPORTED)
-		goto reset_hw_out;
+//	if (status == IXGBE_ERR_SFP_NOT_SUPPORTED)
+//		goto reset_hw_out;
 
 	/* Setup SFP module if there is one present. */
 	if (hw->phy.sfp_setup_needed) {
@@ -1026,8 +1026,8 @@ s32 ixgbe_reset_hw_82599(struct ixgbe_hw *hw)
 		hw->phy.sfp_setup_needed = false;
 	}
 
-	if (status == IXGBE_ERR_SFP_NOT_SUPPORTED)
-		goto reset_hw_out;
+//	if (status == IXGBE_ERR_SFP_NOT_SUPPORTED)
+//		goto reset_hw_out;
 
 	/* Reset PHY */
 	if (hw->phy.reset_disable == false && hw->phy.ops.reset != NULL)
@@ -2071,8 +2071,8 @@ s32 ixgbe_identify_phy_82599(struct ixgbe_hw *hw)
 	}
 
 	/* Return error if SFP module has been detected but is not supported */
-	if (hw->phy.type == ixgbe_phy_sfp_unsupported)
-		return IXGBE_ERR_SFP_NOT_SUPPORTED;
+//	if (hw->phy.type == ixgbe_phy_sfp_unsupported)
+//		return IXGBE_ERR_SFP_NOT_SUPPORTED;
 
 	return status;
 }

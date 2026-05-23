@@ -1290,7 +1290,8 @@ s32 ixgbe_identify_sfp_module_generic(struct ixgbe_hw *hw)
 	if (status != IXGBE_SUCCESS)
 		goto err_read_i2c_eeprom;
 
-	if (identifier != IXGBE_SFF_IDENTIFIER_SFP) {
+//	if (identifier != IXGBE_SFF_IDENTIFIER_SFP) {
+if (0) {
 		hw->phy.type = ixgbe_phy_sfp_unsupported;
 		status = IXGBE_ERR_SFP_NOT_SUPPORTED;
 	} else {
@@ -1333,7 +1334,7 @@ s32 ixgbe_identify_sfp_module_generic(struct ixgbe_hw *hw)
 		if (hw->mac.type == ixgbe_mac_82598EB) {
 			if (cable_tech & IXGBE_SFF_DA_PASSIVE_CABLE)
 				hw->phy.sfp_type = ixgbe_sfp_type_da_cu;
-			else if (comp_codes_10g & IXGBE_SFF_10GBASESR_CAPABLE)
+			else if (comp_codes_10g & IXGBE_SFF_10GBASESR_CAPABLE || 1)
 				hw->phy.sfp_type = ixgbe_sfp_type_sr;
 			else if (comp_codes_10g & IXGBE_SFF_10GBASELR_CAPABLE)
 				hw->phy.sfp_type = ixgbe_sfp_type_lr;
@@ -1484,9 +1485,13 @@ s32 ixgbe_identify_sfp_module_generic(struct ixgbe_hw *hw)
 		      hw->phy.sfp_type == ixgbe_sfp_type_1g_lx_core1 ||
 		      hw->phy.sfp_type == ixgbe_sfp_type_1g_sx_core0 ||
 		      hw->phy.sfp_type == ixgbe_sfp_type_1g_sx_core1)) {
-			hw->phy.type = ixgbe_phy_sfp_unsupported;
-			status = IXGBE_ERR_SFP_NOT_SUPPORTED;
-			goto out;
+printk("lol\n");
+hw->phy.type=ixgbe_phy_sfp_intel;                                hw->phy.sfp_type = ixgbe_sfp_type_sr;
+status=0;
+goto out;
+	//		hw->phy.type = ixgbe_phy_sfp_unsupported;
+	//		status = IXGBE_ERR_SFP_NOT_SUPPORTED;
+	//		goto out;
 		}
 
 		/* Anything else 82598-based is supported */
@@ -1507,7 +1512,8 @@ s32 ixgbe_identify_sfp_module_generic(struct ixgbe_hw *hw)
 			if (hw->phy.type == ixgbe_phy_sfp_intel) {
 				status = IXGBE_SUCCESS;
 			} else {
-				if (hw->allow_unsupported_sfp == true) {
+//			if (hw->allow_unsupported_sfp == true) {
+if (1){
 					EWARN(hw, "WARNING: Intel (R) Network Connections are quality tested using Intel (R) Ethernet Optics. Using untested modules is not supported and may cause unstable operation or damage to the module or the adapter. Intel Corporation is not responsible for any harm caused by using untested modules.\n");
 					status = IXGBE_SUCCESS;
 				} else {
@@ -1634,7 +1640,8 @@ s32 ixgbe_identify_qsfp_module_generic(struct ixgbe_hw *hw)
 	if (status != IXGBE_SUCCESS)
 		goto err_read_i2c_eeprom;
 
-	if (identifier != IXGBE_SFF_IDENTIFIER_QSFP_PLUS) {
+//	if (identifier != IXGBE_SFF_IDENTIFIER_QSFP_PLUS) {
+if (0) {
 		hw->phy.type = ixgbe_phy_sfp_unsupported;
 		status = IXGBE_ERR_SFP_NOT_SUPPORTED;
 		goto out;
@@ -1693,7 +1700,8 @@ s32 ixgbe_identify_qsfp_module_generic(struct ixgbe_hw *hw)
 				active_cable = true;
 		}
 
-		if (active_cable) {
+	//	if (active_cable) {
+if (1) {
 			hw->phy.type = ixgbe_phy_qsfp_active_unknown;
 			if (hw->bus.lan_id == 0)
 				hw->phy.sfp_type =
@@ -1760,7 +1768,7 @@ s32 ixgbe_identify_qsfp_module_generic(struct ixgbe_hw *hw)
 			if (hw->phy.type == ixgbe_phy_qsfp_intel) {
 				status = IXGBE_SUCCESS;
 			} else {
-				if (hw->allow_unsupported_sfp == true) {
+if (1) {//				if (hw->allow_unsupported_sfp == true) {
 					EWARN(hw, "WARNING: Intel (R) Network Connections are quality tested using Intel (R) Ethernet Optics. Using untested modules is not supported and may cause unstable operation or damage to the module or the adapter. Intel Corporation is not responsible for any harm caused by using untested modules.\n");
 					status = IXGBE_SUCCESS;
 				} else {
@@ -1804,15 +1812,15 @@ s32 ixgbe_get_sfp_init_sequence_offsets(struct ixgbe_hw *hw,
 
 	DEBUGFUNC("ixgbe_get_sfp_init_sequence_offsets");
 
-	if (hw->phy.sfp_type == ixgbe_sfp_type_unknown)
-		return IXGBE_ERR_SFP_NOT_SUPPORTED;
+//	if (hw->phy.sfp_type == ixgbe_sfp_type_unknown)
+//		return IXGBE_ERR_SFP_NOT_SUPPORTED;
 
 	if (hw->phy.sfp_type == ixgbe_sfp_type_not_present)
 		return IXGBE_ERR_SFP_NOT_PRESENT;
 
-	if ((hw->device_id == IXGBE_DEV_ID_82598_SR_DUAL_PORT_EM) &&
-	    (hw->phy.sfp_type == ixgbe_sfp_type_da_cu))
-		return IXGBE_ERR_SFP_NOT_SUPPORTED;
+//	if ((hw->device_id == IXGBE_DEV_ID_82598_SR_DUAL_PORT_EM) &&
+//	    (hw->phy.sfp_type == ixgbe_sfp_type_da_cu))
+//		return IXGBE_ERR_SFP_NOT_SUPPORTED;
 
 	/*
 	 * Limiting active cables and 1G Phys must be initialized as
@@ -1855,10 +1863,10 @@ s32 ixgbe_get_sfp_init_sequence_offsets(struct ixgbe_hw *hw,
 			(*list_offset)++;
 			if (hw->eeprom.ops.read(hw, *list_offset, data_offset))
 				goto err_phy;
-			if ((!*data_offset) || (*data_offset == 0xFFFF)) {
-				hw_dbg(hw, "SFP+ module not supported\n");
-				return IXGBE_ERR_SFP_NOT_SUPPORTED;
-			} else {
+//			if ((!*data_offset) || (*data_offset == 0xFFFF)) {
+//				hw_dbg(hw, "SFP+ module not supported\n");
+//				return IXGBE_ERR_SFP_NOT_SUPPORTED;
+else{//			} else {
 				break;
 			}
 		} else {
@@ -1868,10 +1876,10 @@ s32 ixgbe_get_sfp_init_sequence_offsets(struct ixgbe_hw *hw,
 		}
 	}
 
-	if (sfp_id == IXGBE_PHY_INIT_END_NL) {
-		hw_dbg(hw, "No matching SFP+ module found\n");
-		return IXGBE_ERR_SFP_NOT_SUPPORTED;
-	}
+//	if (sfp_id == IXGBE_PHY_INIT_END_NL) {
+//		hw_dbg(hw, "No matching SFP+ module found\n");
+//		return IXGBE_ERR_SFP_NOT_SUPPORTED;
+//	}
 
 	return IXGBE_SUCCESS;
 
